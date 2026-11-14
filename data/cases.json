@@ -1,0 +1,17 @@
+{
+  "providers": [
+    {"name": "Ana", "zone": "Sur", "slots": ["lv-almuerzo"], "diet": "casera", "capacity": 2},
+    {"name": "Beatriz", "zone": "Norte", "slots": ["sab-almuerzo", "sab-cena"], "diet": "general", "capacity": 1},
+    {"name": "Carmen", "zone": "Oriente", "slots": ["lv-almuerzo"], "diet": "baja en sal", "capacity": 1},
+    {"name": "Dora", "zone": "Sur", "slots": ["lv-cena"], "diet": "casera", "capacity": 1},
+    {"name": "Elena", "zone": "Oeste", "slots": ["lv-almuerzo"], "diet": "vegetariana", "capacity": 1}
+  ],
+  "families": [
+    {"name": "Familia Ríos", "zone": "Sur", "slots": ["lv-almuerzo"], "diet": "casera"},
+    {"name": "Familia Gómez", "zone": "Oriente", "slots": ["lv-almuerzo"], "diet": "baja en sal"},
+    {"name": "Familia Paz", "zone": "Norte", "slots": ["sab-almuerzo"], "diet": "general"},
+    {"name": "Familia León", "zone": "Sur", "slots": ["lv-cena"], "diet": "casera"},
+    {"name": "Familia Ortiz", "zone": "Oeste", "slots": ["lv-almuerzo"], "diet": "vegetariana"},
+    {"name": "Familia Sol", "zone": "Norte", "slots": ["lv-almuerzo"], "diet": "casera"}
+  ]
+}

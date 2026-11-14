@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Asignación de servicios alimentarios</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", Helvetica, Arial, sans-serif; background: #14120f; color: #f4efe8; line-height: 1.5; }
+    main { max-width: 980px; margin: 0 auto; padding: 40px 20px 72px; }
+    h1 { font-weight: 560; letter-spacing: -0.03em; margin: 0 0 8px; }
+    a { color: #e0b56a; }
+    p, .en { color: #d9d0c4; }
+    .en { font-size: 0.92rem; }
+    button { background: #e0b56a; color: #1b160f; border: 0; border-radius: 999px; padding: 10px 16px; font-weight: 650; cursor: pointer; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 18px 0; }
+    .card, .hit { background: #211c16; border: 1px solid #3a3128; border-radius: 12px; padding: 14px 16px; }
+    ul { margin: 8px 0 0; padding-left: 1.1rem; }
+    .miss { color: #e7a394; }
+    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="en">Service assignment by zone, schedule, and diet. Sample cases, same rules as the Python matcher.</p>
+    <h1>Asignación de servicios alimentarios</h1>
+    <p>La zona tiene que coincidir. Además hace falta un horario en común y una dieta compatible. Si no hay cupo, la familia queda sin asignación en lugar de forzar un cruce.</p>
+    <p><a href="https://github.com/Emxxlenis/plataforma-servicios-alimentarios">Código</a></p>
+    <button id="run" type="button">Asignar</button>
+    <div class="grid">
+      <section class="card" id="providers"></section>
+      <section class="card" id="families"></section>
+    </div>
+    <section id="out"></section>
+    <p>Los nombres son casos de demostración. Las reglas son las del repositorio: zona obligatoria, horario común y dieta compatible.</p>
+  </main>
+  <script src="logic.js"></script>
+  <script>
+    function list(title, rows, line) {
+      return "<h2>" + title + "</h2><ul>" + rows.map(line).join("") + "</ul>";
+    }
+    document.getElementById("providers").innerHTML = list("Quien ofrece", CASES.providers, (person) =>
+      "<li>" + person.name + " · " + person.zone + " · " + person.diet + " · cupo " + person.capacity + "</li>");
+    document.getElementById("families").innerHTML = list("Familias", CASES.families, (family) =>
+      "<li>" + family.name + " · " + family.zone + " · " + family.diet + " · " + family.slots[0] + "</li>");
+    document.getElementById("run").onclick = () => {
+      const rows = assign(CASES.providers, CASES.families);
+      document.getElementById("out").innerHTML = rows.map((row) => {
+        if (!row.provider) {
+          return '<article class="hit"><b class="miss">' + row.family + "</b><div>Sin asignación. " + row.reason + ".</div></article>";
+        }
+        return '<article class="hit"><b>' + row.family + " → " + row.provider + "</b><div>" + row.zone + " · " + row.slot + " · " + row.diet + ". " + row.reason + ".</div></article>";
+      }).join("");
+    };
+  </script>
+</body>
+</html>
